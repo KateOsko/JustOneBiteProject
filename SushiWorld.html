@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pizza Palace Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="scroll-smooth">
+
+    <!-- Section with Background -->
+  <div class="w-full h-screen bg-no-repeat bg-cover bg-center flex items-center justify-center"
+    style="background-image: url('/brazilian-food-assortment-flat-lay.jpg');">
+
+    <!-- Top-right Login/Signup Buttons -->
+    <div class="fixed top-4 right-8 z-50 flex space-x-4 text-white">
+      <a href="./index.html"
+        class="flex items-center justify-center px-4 py-2 bg-gray-600 rounded-full hover:bg-black transition text-white">
+        Home
+      </a>
+      <a href="#login"
+        class="flex items-center justify-center px-4 py-2 bg-gray-600 rounded-full hover:bg-black transition text-white">
+        Log in
+      </a>
+      <a href="#signup"
+        class="flex items-center justify-center px-4 py-2 bg-gray-600 rounded-full hover:bg-black transition text-white">
+        Sign up
+      </a>
+      <a href="order.html"
+        class="ml-8 px-8 py-3 text-lg font-semibold text-black bg-white rounded-full hover:bg-black hover:text-white transition duration-300">
+        Cart (<span id="cartCount">0</span>)
+      </a>
+    </div>
+
+
+        <div class="max-w-3xl mx-auto px-4 mt-32">
+
+            <main class="bg-white rounded shadow p-6">
+                <header class="mb-8 text-center">
+                    <h1 class="text-4xl font-bold text-amber-600">Suchi World</h1>
+                    <p class="text-gray-600 mt-2">Suchi made fresh for you!</p>
+                </header>
+                <h2 class="text-2xl font-semibold mb-6">Menu</h2>
+                <ul class="space-y-6">
+
+
+                    <ul class="space-y-6">
+                        <!-- Menu Item Template -->
+                        <li class="flex justify-between items-start border-b pb-4">
+                            <div>
+                                <h3 class="text-xl font-semibold">California Roll</h3>
+                                <p class="w-[400px] shrink-0 text-gray-600">A classic roll with crab (or imitation
+                                    crab), avocado, and sometimes cucumber </p>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-amber-600 font-bold text-lg">$12.99</span>
+                                <button onclick="addToCart(this, 'California Roll', 12.99)"
+                                    class="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600 transition">
+                                    Add to Cart
+                                </button>
+
+                            </div>
+                        </li>
+
+                        <li class="flex justify-between items-center border-b pb-4">
+                            <div>
+                                <h3 class="text-xl font-semibold">Spicy Tuna Roll</h3>
+                                <p class="w-[400px] shrink-0 text-gray-600">A popular roll with spicy tuna and often
+                                    other ingredients</p>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-amber-600 font-bold text-lg">$14.99</span>
+                                <button onclick="addToCart(this, 'Spicy Tuna Roll', 14.99)"
+                                    class="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600 transition">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </li>
+
+                        <li class="flex justify-between items-center border-b pb-4">
+                            <div>
+                                <h3 class="text-xl font-semibold">Tempura Roll</h3>
+                                <p class="w-[400px] shrink-0 text-gray-600">Rolls that include fried tempura pieces</p>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-amber-600 font-bold text-lg">$15.99</span>
+                                <button onclick="addToCart(this,'Tempura Roll',15.99)"
+                                    class="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600 transition">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </li>
+
+                        <li class="flex justify-between items-center border-b pb-4">
+                            <div>
+                                <h3 class="text-xl font-semibold">Nigiri</h3>
+                                <p class="w-[400px] shrink-0 text-gray-600">Sushi rice topped with a slice of fish or
+                                    other ingredient</p>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-amber-600 font-bold text-lg">$13.99</span>
+                                <button onclick="addToCart(this, 'Nigiri', 13.99)"
+                                    class="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600 transition">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </li>
+
+                        <li class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-xl font-semibold">Sashimi</h3>
+                                <p class="w-[400px] shrink-0 text-gray-600">thinly sliced, raw fish or meat.</p>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-amber-600 font-bold text-lg">$16.49</span>
+                                <button onclick="addToCart(this, 'Sashimi', 16.49)"
+                                    class="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600 transition">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+            </main>
+
+            <script>
+                // Initialize cart from localStorage or as an empty array
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+                function updateCartCount() {
+                    const total = cart.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+                    const countSpan = document.getElementById("cartCount");
+                    if (countSpan) {
+                        countSpan.textContent = total;
+                    }
+                }
+
+                function saveCart() {
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                }
+
+                // Call this on page load to update the cart count
+                document.addEventListener("DOMContentLoaded", updateCartCount);
+
+                // Add an item to the cart and update everything
+                function addToCart(button, name, price) {
+                    const existing = cart.find(item => item.name === name);
+                    if (existing) {
+                        existing.quantity += 1;
+                    } else {
+                        cart.unshift({ name, price, quantity: 1 });
+                    }
+
+                    updateCartCount();
+                    saveCart();
+
+                    const originalText = button.textContent;
+                    button.textContent = "Added ✓";
+                    button.disabled = true;
+                    button.classList.remove("bg-amber-500", "hover:bg-amber-600");
+                    button.classList.add("bg-green-500", "hover:bg-green-600");
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                        button.classList.remove("bg-green-500", "hover:bg-green-600");
+                        button.classList.add("bg-amber-500", "hover:bg-amber-600");
+                    }, 1200);
+                }
+
+                function handleAddToCart(button, itemName) {
+                    addToCart(itemName);
+                    // Change button text to "Added" temporarily
+                    const originalText = button.textContent;
+                    button.textContent = "Added ✓";
+                    button.disabled = true;
+                    button.classList.remove("bg-amber-500", "hover:bg-amber-600");
+                    button.classList.add("bg-green-500", "hover:bg-green-600");
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                        button.classList.remove("bg-green-500", "hover:bg-green-600");
+                        button.classList.add("bg-amber-500", "hover:bg-amber-600");
+                    }, 1200);
+                }
+
+            </script>
+</body>
+
+</html>
